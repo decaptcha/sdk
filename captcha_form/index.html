@@ -1,0 +1,477 @@
+<html>
+<head>
+    <!-- <title>Bootstrap Contact Form With Captcha | Html Hints</title> -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Lato:300,400,500' rel='stylesheet' type='text/css'>
+    <link href='custom.css' rel='stylesheet' type='text/css'>
+    <link rel="icon" type="image/png" href="https://www.htmlhints.com/image/fav-icon.png">
+    <meta name="msvalidate.01" content="B7807734CA7AACC0779B341BBB766A4E" />
+    <meta name="p:domain_verify" content="78ad0b4e41a4f27490d91585cb10df4a"/>
+    <style>
+        body {font-family: Arial, Helvetica, sans-serif;}
+        .modal {
+          display: none; /* Hidden by default */
+          position: fixed; /* Stay in place */
+          left: 0;
+          top: 0;
+          width: 100%; /* Full width */
+          height: 100%; /* Full height */
+          overflow: auto; /* Enable scroll if needed */
+          background-color: rgb(0,0,0); /* Fallback color */
+          background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+          -webkit-animation-name: fadeIn; /* Fade in the background */
+          -webkit-animation-duration: 0.4s;
+          animation-name: fadeIn;
+          animation-duration: 0.4s
+        }
+        
+        /* Modal Content */
+        .modal-content {
+          position: fixed;
+          left: 600;
+          top: 100;
+          overflow: auto;
+          background-color: #fefefe;
+          width: 30%;
+          height: 50%;
+          -webkit-animation-name: slideIn;
+          -webkit-animation-duration: 0.4s;
+          animation-name: slideIn;
+          animation-duration: 0.4s
+        }
+
+        .modal-header {
+          position: relative;
+          left: auto;
+          top: auto;
+          background-color: #fefefe;
+          width: auto;
+          height: auto;
+          -webkit-animation-name: slideIn;
+          -webkit-animation-duration: 0.4s;
+          animation-name: slideIn;
+          animation-duration: 0.4s
+        }
+
+        .modal-body {
+          position: relative;
+          left: auto;
+          top: auto;
+          bottom: 20%;
+          background-color: #fefefe;
+          width: auto;
+          height: auto;
+          -webkit-animation-name: slideIn;
+          -webkit-animation-duration: 0.4s;
+          animation-name: slideIn;
+          animation-duration: 0.4s
+        }
+        
+        /* The Close Button */
+        .close {
+          color: white;
+          float: right;
+          font-size: 28px;
+          font-weight: bold;
+        }
+        
+        .close:hover,
+        .close:focus {
+          color: #000;
+          text-decoration: none;
+          cursor: pointer;
+        }
+        
+        /* Add Animation */
+        @-webkit-keyframes slideIn {
+          from {bottom: -300px; opacity: 0} 
+          to {bottom: 0; opacity: 1}
+        }
+        
+        @keyframes slideIn {
+          from {bottom: -300px; opacity: 0}
+          to {bottom: 0; opacity: 1}
+        }
+        
+        @-webkit-keyframes fadeIn {
+          from {opacity: 0} 
+          to {opacity: 1}
+        }
+        
+        @keyframes fadeIn {
+          from {opacity: 0} 
+          to {opacity: 1}
+        }
+
+        .grid {
+            margin:0;
+            padding:0;
+            border:none;
+            outline:1px solid #000;
+            display:inline-block;
+        }
+        @font-face {
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 400;
+      src: url(//fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu72xKKTU1Kvnz.woff2) format('woff2');
+      unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+    }
+    /* cyrillic */
+    @font-face {
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 400;
+      src: url(//fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu5mxKKTU1Kvnz.woff2) format('woff2');
+      unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+    }
+    /* greek-ext */
+    @font-face {
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 400;
+      src: url(//fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu7mxKKTU1Kvnz.woff2) format('woff2');
+      unicode-range: U+1F00-1FFF;
+    }
+    /* greek */
+    @font-face {
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 400;
+      src: url(//fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu4WxKKTU1Kvnz.woff2) format('woff2');
+      unicode-range: U+0370-03FF;
+    }
+    /* vietnamese */
+    @font-face {
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 400;
+      src: url(//fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu7WxKKTU1Kvnz.woff2) format('woff2');
+      unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+    }
+    /* latin-ext */
+    @font-face {
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 400;
+      src: url(//fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu7GxKKTU1Kvnz.woff2) format('woff2');
+      unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    /* latin */
+    @font-face {
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 400;
+      src: url(//fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu4mxKKTU1Kg.woff2) format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    /* cyrillic-ext */
+    @font-face {
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 500;
+      src: url(//fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmEU9fCRc4AMP6lbBP.woff2) format('woff2');
+      unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+    }
+    /* cyrillic */
+    @font-face {
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 500;
+      src: url(//fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmEU9fABc4AMP6lbBP.woff2) format('woff2');
+      unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+    }
+    /* greek-ext */
+    @font-face {
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 500;
+      src: url(//fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmEU9fCBc4AMP6lbBP.woff2) format('woff2');
+      unicode-range: U+1F00-1FFF;
+    }
+    /* greek */
+    @font-face {
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 500;
+      src: url(//fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmEU9fBxc4AMP6lbBP.woff2) format('woff2');
+      unicode-range: U+0370-03FF;
+    }
+    /* vietnamese */
+    @font-face {
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 500;
+      src: url(//fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmEU9fCxc4AMP6lbBP.woff2) format('woff2');
+      unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+    }
+    /* latin-ext */
+    @font-face {
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 500;
+      src: url(//fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmEU9fChc4AMP6lbBP.woff2) format('woff2');
+      unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    /* latin */
+    @font-face {
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 500;
+      src: url(//fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmEU9fBBc4AMP6lQ.woff2) format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    /* cyrillic-ext */
+    @font-face {
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 900;
+      src: url(//fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmYUtfCRc4AMP6lbBP.woff2) format('woff2');
+      unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+    }
+    /* cyrillic */
+    @font-face {
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 900;
+      src: url(//fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmYUtfABc4AMP6lbBP.woff2) format('woff2');
+      unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+    }
+    /* greek-ext */
+    @font-face {
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 900;
+      src: url(//fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmYUtfCBc4AMP6lbBP.woff2) format('woff2');
+      unicode-range: U+1F00-1FFF;
+    }
+    /* greek */
+    @font-face {
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 900;
+      src: url(//fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmYUtfBxc4AMP6lbBP.woff2) format('woff2');
+      unicode-range: U+0370-03FF;
+    }
+    /* vietnamese */
+    @font-face {
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 900;
+      src: url(//fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmYUtfCxc4AMP6lbBP.woff2) format('woff2');
+      unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+    }
+    /* latin-ext */
+    @font-face {
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 900;
+      src: url(//fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmYUtfChc4AMP6lbBP.woff2) format('woff2');
+      unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    /* latin */
+    @font-face {
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 900;
+      src: url(//fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmYUtfBBc4AMP6lQ.woff2) format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+        </style>
+
+    <link rel="stylesheet" type="text/css" href="https://www.gstatic.com/recaptcha/releases/8G7OPK94bhCRbT0VqyEVpQNj/styles__ltr.css">
+    <script nonce="42fioSZ-ENSemNlOBMF-KQ" type="text/javascript">window['__recaptcha_api'] = 'https://www.google.com/recaptcha/api2/';</script>
+    <script type="text/javascript" src="https://www.gstatic.com/recaptcha/releases/8G7OPK94bhCRbT0VqyEVpQNj/recaptcha__en.js" nonce="42fioSZ-ENSemNlOBMF-KQ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'UA-145078782-1');
+    </script>
+    <style>
+    .list-unstyled {
+        color: red;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-xl-8 offset-xl-2">
+                <form id="contact-form" role="form">
+
+                    <div class="messages"></div>
+
+                    <div class="controls">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="form_name">Firstname *</label>
+                                    <input id="form_name" type="text" name="name" class="form-control" placeholder="Please enter your firstname *" required="required"
+                                        data-error="Firstname is required.">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="form_lastname">Lastname *</label>
+                                    <input id="form_lastname" type="text" name="surname" class="form-control" placeholder="Please enter your lastname *" required="required"
+                                        data-error="Lastname is required.">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="form_email">Email *</label>
+                                    <input id="form_email" type="email" name="email" class="form-control" placeholder="Please enter your email *" required="required"
+                                        data-error="Valid email is required.">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="form_phone">Phone</label>
+                                    <input id="form_phone" type="tel" name="phone" class="form-control" placeholder="Please enter your phone">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="form_message">Message *</label>
+                            <textarea id="form_message" name="message" class="form-control" placeholder="Message for me *" rows="4" required="required"
+                                data-error="Please, leave us a message."></textarea>
+                            <div class="help-block with-errors"></div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="g-recaptcha" data-sitekey="6Ld349AkAAAAAKuq264rNlR4bSyKrbGUls9mSvhp" ></div>
+                            <input class="form-control d-none" data-recaptcha="true" required data-error="Please complete the Captcha">
+                            <div class="help-block with-errors"></div>
+                        </div>
+
+
+                        <input type="submit" class="btn btn-success btn-send" value="Send message" onClick="validate()"/>
+                        <input type="checkbox" id="myBtn" onclick="checkClickFunc()">Are you a Human?
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+  <div id="modalContent" class="modal-content">
+    <div id="mheader" class="modal-header">
+      <span class="close">&times;</span>
+    </div>
+    <div id="innerBody" class="modal-body">
+
+    </div>
+    <div class="modal-footer">
+        <input type="close" id="close" class="btn btn-success btn-send" value="Close" onClick="closeButtone()"/>
+    </div>
+  </div>
+</div>
+
+<script>
+var gridRowSize = 3;
+var gridColSize = 2;
+var checkedBefore = false;
+var listOfData = new Array();
+window.onload = function() {
+    listOfData = [
+    "https://images.pexels.com/photos/139446/pexels-photo-139446.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    "https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014_1280.jpg",
+    "https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    "https://images.pexels.com/photos/531767/pexels-photo-531767.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    "https://images.pexels.com/photos/531767/pexels-photo-531767.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    "https://images.pexels.com/photos/139446/pexels-photo-139446.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"]
+};
+
+function validate() {
+    if(!checkedBefore) {
+        window.alert('Please check the box before proceeding.')
+    } else {
+        window.location.href = "https://99designs.com/inspiration/websites/food";
+    }
+}
+
+function closeButtone() {
+    modal.style.display = "none";
+    document.getElementById('myBtn').checked = false;
+    console.log(`roshan1 closing ${trainedList}`);
+    checkedBefore = true;
+    trainedList= new Array(gridRowSize*gridColSize).fill(0);
+}
+
+// Get the modal
+var trainedList = new Array(gridRowSize*gridColSize).fill(0);
+var modal = document.getElementById("myModal");
+var modalContentNode = document.getElementById("modalContent");
+var bodyNode = document.getElementById("innerBody");
+var headerNode = document.getElementById("mheader");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+function updateCount(val) {
+    if(trainedList[val] == 0) trainedList[val] = 1;
+}
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+    bodyNode.innerHTML = "";
+    modal.style.display = "block";
+    let cellWidth = bodyNode.clientWidth/gridColSize;
+    let cellHeight = bodyNode.clientHeight/gridRowSize;
+    let category = 'cars';
+    console.log(`roshan ${bodyNode.clientWidth} :: ${bodyNode.clientHeight} ::`);
+    const tbl = document.createElement("table");
+    const tblBody = document.createElement("tbody");
+    let imageCount = 0;
+    for (let i = 0; i < gridRowSize; i++) {
+        const row = document.createElement("tr");
+        row.style.width = "auto";
+        row.style.height = `${cellHeight}px`;
+        for (let j = 0; j < gridColSize; j++) {
+            const cell = document.createElement("td");
+            cell.style.width = `${cellWidth}px`;
+            cell.style.height = "auto";
+            cell.innerHTML = '<div id="hello" onclick="updateCount(' + imageCount+ ')"><img src=' + listOfData[imageCount] + ' alt="haha" width=100% height=100%></div>';
+            row.appendChild(cell);
+            imageCount++;
+        }
+        tblBody.appendChild(row);
+    }
+    tbl.appendChild(tblBody);
+    document.body.appendChild(tbl);
+    tbl.setAttribute("border", "2");
+    bodyNode.append(tbl);
+    headerNode.innerHTML = '<div id="rc-imageselect" aria-modal="true" role="dialog"><div class="rc-imageselect-response-field"></div><span class="rc-imageselect-tabloop-begin" tabindex="0"></span><div class="rc-imageselect-payload"><div class="rc-imageselect-instructions"><div class="rc-imageselect-desc-wrapper"><div class="rc-imageselect-desc-no-canonical" style="position: relative; bottom: 20px; width: 352px; font-size: 16px;">Select all squares with <strong style="font-size: 20px;">'+ category + '</strong></div></div><div class="rc-imageselect-progress"></div></div><div class="rc-imageselect-challenge"><div id="rc-imageselect-target" class="rc-imageselect-target" dir="ltr" role="presentation" aria-hidden="true"></div>';
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+  console.log(`roshan1 closing ${trainedList}`);
+}
+
+</script>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+
+</html>

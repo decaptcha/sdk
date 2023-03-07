@@ -10,7 +10,11 @@
     <meta name="msvalidate.01" content="B7807734CA7AACC0779B341BBB766A4E" />
     <meta name="p:domain_verify" content="78ad0b4e41a4f27490d91585cb10df4a"/>
     <style>
-        body {font-family: Arial, Helvetica, sans-serif;}
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-image: url("https://images.unsplash.com/photo-1678094947223-026bd23892db?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3026&q=80");
+            background-size: cover;
+        }
         .modal {
           display: none; /* Hidden by default */
           position: fixed; /* Stay in place */
@@ -154,16 +158,16 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label for="form_name">Firstname *</label>
-                                    <input id="form_name" type="text" name="name" class="form-control" placeholder="Please enter your firstname *" required="required"
+                                    <label for="form_name" style="color: antiquewhite; position: relative; top: 50px;">Firstname *</label>
+                                    <input id="form_name" style="background-color: beige; position: relative; top: 50px;" type="text" name="name" class="form-control" placeholder="Please enter your firstname *" required="required"
                                         data-error="Firstname is required.">
                                     <div class="help-block with-errors"></div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label for="form_lastname">Lastname *</label>
-                                    <input id="form_lastname" type="text" name="surname" class="form-control" placeholder="Please enter your lastname *" required="required"
+                                    <label for="form_lastname" style="color: antiquewhite; position: relative; top: 50px;">Lastname *</label>
+                                    <input id="form_lastname" style="background-color: beige; position: relative; top: 50px;" type="text" name="surname" class="form-control" placeholder="Please enter your lastname *" required="required"
                                         data-error="Lastname is required.">
                                     <div class="help-block with-errors"></div>
                                 </div>
@@ -172,23 +176,23 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label for="form_email">Email *</label>
-                                    <input id="form_email" type="email" name="email" class="form-control" placeholder="Please enter your email *" required="required"
+                                    <label for="form_email" style="color: antiquewhite; position: relative; top: 50px;">Email *</label>
+                                    <input id="form_email" style="background-color: beige; position: relative; top: 50px;" type="email" name="email" class="form-control" placeholder="Please enter your email *" required="required"
                                         data-error="Valid email is required.">
                                     <div class="help-block with-errors"></div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label for="form_phone">Phone</label>
-                                    <input id="form_phone" type="tel" name="phone" class="form-control" placeholder="Please enter your phone">
+                                    <label for="form_phone" style="color: antiquewhite; position: relative; top: 50px;">Phone</label>
+                                    <input id="form_phone" style="background-color: beige; position: relative; top: 50px;" type="tel" name="phone" class="form-control" placeholder="Please enter your phone">
                                     <div class="help-block with-errors"></div>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="form_message">Message *</label>
-                            <textarea id="form_message" name="message" class="form-control" placeholder="Message for me *" rows="4" required="required"
+                            <label for="form_message" style="color: antiquewhite; position: relative; top: 50px;">Message *</label>
+                            <textarea id="form_message" style="background-color: beige; position: relative; top: 50px;" name="message" class="form-control" placeholder="Message for me *" rows="4" required="required"
                                 data-error="Please, leave us a message."></textarea>
                             <div class="help-block with-errors"></div>
                         </div>
@@ -201,8 +205,8 @@
                         </div>
 
 
-                        <input type="submit" class="btn btn-success btn-send" value="Send message" onClick="validate()"/>
-                        <div id="message"><input type="checkbox" id="myBtn" onclick="checkClickFunc()">Are you a Human?</div>
+                        <input type="submit" class="btn btn-success btn-send" style="color: antiquewhite; position: relative; top: 50px;" value="Send message" onClick="validate()"/>
+                        <div id="message" style="color: antiquewhite; position: relative; top: 50px; left: 580px; top: 10px;"><input type="checkbox" id="myBtn" style="transform: scale(1.5);" onclick="checkClickFunc()"><p style="color: antiquewhite; transform: scale(1.1); position: relative; left: 30px;">Are you a Human?</p></div>
 
 <!-- The Modal -->
 <div id="myModal" class="modal">

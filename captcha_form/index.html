@@ -83,6 +83,23 @@
           text-decoration: none;
           cursor: pointer;
         }
+
+        .highlighted {
+            border:2px solid #b404ae;
+            background-image: url(image/tick.png);
+        }
+        #textbox span {
+            bottom: 50px;
+            color: #0f0;
+            left: auto;
+            position: relative;
+            display:none;
+            border:none;
+        }
+        #textbox span.highlighted {
+            display:inline;
+            
+        }
         
         /* Add Animation */
         @-webkit-keyframes slideIn {
@@ -193,28 +210,75 @@
     <div id="mheader" class="modal-header">
       <span class="close">&times;</span>
     </div>
-    <div id="innerBody" class="modal-body">
+    <div id="innerBody" class="modal-body" style="position:relative; bottom:10%;">
 
     </div>
-    <div class="modal-footer">
-        <input type="close" id="close" class="btn btn-success btn-send" value="Close" onClick="closeButtone()"/>
+    <div class="modal-footer" style="position:relative; bottom:0%; height: 30%;">
+        <div><img src="https://cdn0.iconfinder.com/data/icons/glyphpack/41/refresh-1024.png" onclick="refreshCaptcha()" alt="haha" style="position:relative; width:auto; height:50%; right:350%; top:0px;"></div>
+        <input type="submit" id="close" class="btn btn-success btn-send" value="Done" onclick="closeButton()" style="position:relative; width:35%; height:50%; right:10%; top:0px;"/>
     </div>
   </div>
 </div>
 
 <script>
 var gridRowSize = 3;
-var gridColSize = 2;
+var gridColSize = 4;
 var checkedBefore = false;
 var listOfData = new Array();
+let imageName = undefined;
+let requestUrl = "http://7ac2-183-87-63-158.in.ngrok.io"
+
+function refreshCaptcha() {
+    getCaptcha();
+    showNewModal();
+}
+
+function getCaptcha() {
+    $.ajax({
+        url: `${requestUrl}/captcha/`,
+        crossDomain: true,
+        async: false,
+        success: function(result) {
+            let obj = result["resp"]["images"];
+            imageName = result["resp"]["label"];
+            obj.forEach(element => {
+                let str = element["url"];
+                element["url"] = str.replace("http://localhost:3690/", `${requestUrl}/`);
+            });
+            listOfData = obj;
+        },
+        error: function(err) {
+            console.log(`Exception for getCaptcha: ${JSON.stringify(err)} ::`);
+        }
+    });
+}
+
+
+function postCaptcha() {
+    $.ajax({
+        url: `${requestUrl}/captcha/`,
+        crossDomain: true,
+        async: false,
+        method: 'POST',
+        data: {
+            images: listOfData,
+        },
+        success: function(result) {
+            let humanCheckPassed = result["resp"]["humanCheckPassed"];
+            let status = result["status"];
+            if(!humanCheckPassed || status != 200) {
+                getCaptcha();
+                showNewModal();
+            }
+        },
+        error: function(err) {
+            console.log(`Exception for postCaptcha: ${JSON.stringify(err)} ::`);
+        }
+    });
+}
+
 window.onload = function() {
-    listOfData = [
-    "https://images.pexels.com/photos/139446/pexels-photo-139446.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    "https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014_1280.jpg",
-    "https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    "https://images.pexels.com/photos/531767/pexels-photo-531767.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    "https://images.pexels.com/photos/531767/pexels-photo-531767.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    "https://images.pexels.com/photos/139446/pexels-photo-139446.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"]
+    getCaptcha();
 };
 
 function validate() {
@@ -225,39 +289,37 @@ function validate() {
     }
 }
 
-function closeButtone() {
+function closeButton() {
     modal.style.display = "none";
     document.getElementById('myBtn').checked = false;
-    console.log(`roshan1 closing ${trainedList}`);
+    listOfData.forEach((element) => {
+        if(element["selected"] == undefined) element["selected"] = "false";
+    });
+    postCaptcha();
     checkedBefore = true;
-    trainedList= new Array(gridRowSize*gridColSize).fill(0);
 }
 
-// Get the modal
-var trainedList = new Array(gridRowSize*gridColSize).fill(0);
-var modal = document.getElementById("myModal");
-var modalContentNode = document.getElementById("modalContent");
-var bodyNode = document.getElementById("innerBody");
-var headerNode = document.getElementById("mheader");
-
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-function updateCount(val) {
-    if(trainedList[val] == 0) trainedList[val] = 1;
-}
-
-// When the user clicks the button, open the modal 
-btn.onclick = function() {
+function showNewModal() {
     bodyNode.innerHTML = "";
     modal.style.display = "block";
+    generateGrid();
+}
+
+function clickImage(event) {
+    var target = event.target || event.srcElement;
+    if(target.className == "highlighted") {
+        target.className = "normal";
+        target.nextSibling.className = "normal";
+    } else {
+        target.className = "highlighted";
+        target.nextSibling.className = "highlighted";
+    }
+}
+
+function generateGrid() {
     let cellWidth = bodyNode.clientWidth/gridColSize;
     let cellHeight = bodyNode.clientHeight/gridRowSize;
-    let category = 'cars';
-    console.log(`roshan ${bodyNode.clientWidth} :: ${bodyNode.clientHeight} ::`);
+    let category = imageName;
     const tbl = document.createElement("table");
     const tblBody = document.createElement("tbody");
     let imageCount = 0;
@@ -269,7 +331,21 @@ btn.onclick = function() {
             const cell = document.createElement("td");
             cell.style.width = `${cellWidth}px`;
             cell.style.height = "auto";
-            cell.innerHTML = '<div id="hello" onclick="updateCount(' + imageCount+ ')"><img src=' + listOfData[imageCount] + ' alt="haha" width=100% height=100%></div>';
+            cell.innerHTML = '<div id="textbox"><img src="' + listOfData[imageCount]["url"] + '" id="' + listOfData[imageCount]["id"] + '" class="normal" alt="haha" width=100% height=100%><span class="tickmark">&#10004;</span></div>';
+            cell.addEventListener("click", (event) => {
+                var target = event.target || event.srcElement;
+                listOfData.forEach((element)=> {
+                    if(target.id && element["id"] == target.id && target.className) {
+                        if(target.className == "normal") {
+                            element["selected"] = "true";
+                            target.className = "highlighted";
+                        } else {
+                            element["selected"] = "false";
+                            target.className = "normal";
+                        }
+                    }
+                });
+            });
             row.appendChild(cell);
             imageCount++;
         }
@@ -282,10 +358,27 @@ btn.onclick = function() {
     headerNode.innerHTML = '<div id="rc-imageselect" aria-modal="true" role="dialog"><div class="rc-imageselect-response-field"></div><span class="rc-imageselect-tabloop-begin" tabindex="0"></span><div class="rc-imageselect-payload"><div class="rc-imageselect-instructions"><div class="rc-imageselect-desc-wrapper"><div class="rc-imageselect-desc-no-canonical" style="position: relative; bottom: 20px; width: 352px; font-size: 16px;">Select all squares with <strong style="font-size: 20px;">'+ category + '</strong></div></div><div class="rc-imageselect-progress"></div></div><div class="rc-imageselect-challenge"><div id="rc-imageselect-target" class="rc-imageselect-target" dir="ltr" role="presentation" aria-hidden="true"></div>';
 }
 
+// Get the modal
+var trainedList = new Array().fill({});
+var modal = document.getElementById("myModal");
+var modalContentNode = document.getElementById("modalContent");
+var bodyNode = document.getElementById("innerBody");
+var headerNode = document.getElementById("mheader");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+    showNewModal();
+}
+
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
   modal.style.display = "none";
-  console.log(`roshan1 closing ${trainedList}`);
 }
 
 </script>
